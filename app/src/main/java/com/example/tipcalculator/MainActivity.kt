@@ -3,7 +3,10 @@ package com.example.tipcalculator
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
@@ -47,16 +50,27 @@ fun TipCalculatorApp() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .background(Color.Black),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        Text (
+            text = "Tip Calculator",
+            color = Color.White,
+            fontSize = 32.sp,
+        )
+
+        Spacer(modifier = Modifier.height(32.dp))
+
         OutlinedTextField(
             value = billAmount,
             onValueChange = {
                 billAmount = it
             },
-            label = { Text("Bill Amount") },
+            label = { Text(
+                text = "Bill Amount",
+                color = Color.White
+            ) },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done
@@ -66,9 +80,17 @@ fun TipCalculatorApp() {
                     keyboardController?.hide()
                 }
             ),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                cursorColor = Color.White,
+                textColor = Color.White,
+                unfocusedBorderColor = Color(0xFFb300b3),
+                focusedBorderColor = Color.White
+            ),
+            shape = RoundedCornerShape(8.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
+
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -78,13 +100,21 @@ fun TipCalculatorApp() {
             onValueChange = {
                 tipPercentage = it.toInt()
             },
+            colors = SliderDefaults.colors(
+                thumbColor = Color(0xFFb300b3),
+                activeTrackColor = Color(0xFFb300b3)
+            ),
             valueRange = 0f..30f,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
         )
 
-        Text(text = "Tip Percentage: $tipPercentage%", fontSize = 16.sp, modifier = Modifier.padding(8.dp))
+        Text(text = "Tip Percentage: $tipPercentage%",
+            fontSize = 16.sp,
+            color = Color.White,
+            modifier = Modifier
+                .padding(8.dp))
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -93,7 +123,8 @@ fun TipCalculatorApp() {
                 text = "Tip Amount: $${"%.2f".format(tipAmount)}",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
+                color = Color.White
             )
 
             Button(
